@@ -25,12 +25,12 @@ module Akatus
 
     # private
 
-      def self.prepare_xml_to_send(order)
+      def self.prepare_xml_to_send(order, seller_api_key = nil, seller_email = nil)
         builder = Nokogiri::XML::Builder.new do |xml|
           xml.carrinho {
             xml.recebedor {
-              xml.api_key Akatus.seller_api_key
-              xml.email Akatus.seller_email
+              xml.api_key seller_api_key || Akatus.seller_api_key
+              xml.email seller_email || Akatus.seller_email
             }
             xml.pagador {
               xml.nome order.buyer_name
