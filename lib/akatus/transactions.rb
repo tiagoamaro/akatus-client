@@ -1,7 +1,7 @@
 module Akatus
   class Transactions
-    def self.process(order)
-      xml = prepare_xml_to_send order
+    def self.process(order, seller_api_key = nil, seller_email = nil)
+      xml = prepare_xml_to_send order, seller_api_key, seller_email
       url = "#{Akatus.akatus_api_uri}/carrinho.xml"
       request = HTTPI::Request.new
       request.body = xml
