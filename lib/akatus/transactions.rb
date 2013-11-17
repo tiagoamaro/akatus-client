@@ -5,12 +5,12 @@ module Akatus
     def self.process(order, seller_api_key = nil, seller_email = nil, api_uri = nil)
       xml = prepare_xml_to_send order, seller_api_key, seller_email
       url = "#{api_uri}/carrinho.xml" || "#{Akatus.akatus_api_uri}/carrinho.xml"
-      request = HTTPI::Request.new
+      request = ::HTTPI::Request.new
       request.body = xml
       request.url = url
       request.open_timeout = 10 # sec
       request.read_timeout = 30 # sec
-      response = HTTPI.post request
+      response = ::HTTPI.post request
 
       Hash.from_xml(Nokogiri::XML(response.raw_body).to_s)['resposta']
     end
