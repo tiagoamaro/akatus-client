@@ -1,8 +1,10 @@
+require 'httpi'
+
 module Akatus
   class Transactions
     def self.process(order, seller_api_key = nil, seller_email = nil, api_uri = nil)
       xml = prepare_xml_to_send order, seller_api_key, seller_email
-      url = api_uri || "#{Akatus.akatus_api_uri}/carrinho.xml"
+      url = "#{api_uri}/carrinho.xml" || "#{Akatus.akatus_api_uri}/carrinho.xml"
       request = HTTPI::Request.new
       request.body = xml
       request.url = url
@@ -71,7 +73,7 @@ module Akatus
             xml.transacao {
               xml.desconto_total order.discount_amount || 0.0
               xml.peso_total order.weight || 0.0
-              xml.frete_total order.freight_amount || 0.0
+              xml.frete order.freight_amount || 0.0
               xml.moeda 'BRL'
               xml.meio_de_pagamento map_payment_method(order.payment_method)
               xml.parcelas order.installments || 1
