@@ -1,34 +1,38 @@
-require 'httpi'
+require 'nokogiri'
+require 'httparty'
 
 module Akatus
   class Transactions
     def self.process(order, seller_api_key = nil, seller_email = nil, api_uri = nil)
       xml = prepare_xml_to_send order, seller_api_key, seller_email
       url = "#{api_uri}/carrinho.xml" || "#{Akatus.akatus_api_uri}/carrinho.xml"
-      request = ::HTTPI::Request.new
-      request.body = xml
-      request.url = url
-      request.open_timeout = 10 # sec
-      request.read_timeout = 30 # sec
-      response = ::HTTPI.post request
+      response = ::HTTParty.post(url, body: xml)
+      # request = ::HTTPI::Request.new
+      # request.body = xml
+      # request.url = url
+      # request.open_timeout = 10 # sec
+      # request.read_timeout = 30 # sec
+      # response = ::HTTPI.post request
 
-      Hash.from_xml(Nokogiri::XML(response.raw_body).to_s)['resposta']
+      response['resposta']
+    rescue
+      nil
     end
 
-    def self.status(akatus_uuid)
-      url = "#{Akatus.akatus_api_uri}/transacao-simplificada/#{akatus_uuid}.json?email=#{seller_email}&api_key=#{seller_api_key}"
-      request = HTTPI::Request.new
-      request.url = url
-      request.open_timeout = 10 # sec
-      request.read_timeout = 30 # sec
-      @response ||= HTTPI.get request
-      #TODO Finish to implement this
-    end
+    # TODO Finish to implement this
+    # def self.status(akatus_uuid)
+    #   url = "#{Akatus.akatus_api_uri}/transacao-simplificada/#{akatus_uuid}.json?email=#{seller_email}&api_key=#{seller_api_key}"
+    #   request = HTTPI::Request.new
+    #   request.url = url
+    #   request.open_timeout = 10 # sec
+    #   request.read_timeout = 30 # sec
+    #   @response ||= HTTPI.get request
+    # end
 
     # private
 
       def self.prepare_xml_to_send(order, seller_api_key = nil, seller_email = nil)
-        builder = Nokogiri::XML::Builder.new do |xml|
+        builder = ::Nokogiri::XML::Builder.new do |xml|
           xml.carrinho {
             xml.recebedor {
               xml.api_key seller_api_key || Akatus.seller_api_key

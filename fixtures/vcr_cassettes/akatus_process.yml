@@ -1,0 +1,99 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sandbox.akatus.com/api/v1/carrinho.xml
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <carrinho>
+          <recebedor>
+            <api_key>02CCEF20-1111-1111-8F69-60139FECAB4F</api_key>
+            <email>teobaldo@mailinator.com</email>
+          </recebedor>
+          <pagador>
+            <nome>Homer Simpson</nome>
+            <email>user@mailer.com</email>
+            <enderecos>
+              <endereco>
+                <tipo>residencial</tipo>
+                <logradouro>Evergreen Al.</logradouro>
+                <numero>30</numero>
+                <bairro>Centro</bairro>
+                <cidade>S&#xE3;o Paulo</cidade>
+                <estado>SP</estado>
+                <pais>BRA</pais>
+                <cep>22111000</cep>
+              </endereco>
+            </enderecos>
+            <telefones>
+              <telefone>
+                <tipo>residencial</tipo>
+                <numero>21911111111</numero>
+              </telefone>
+            </telefones>
+          </pagador>
+          <produtos>
+            <produto>
+              <codigo>0001</codigo>
+              <descricao>Produto Tabajara</descricao>
+              <quantidade>1</quantidade>
+              <peso>2.5</peso>
+              <frete>10.0</frete>
+              <preco>55.99</preco>
+            </produto>
+          </produtos>
+          <transacao>
+            <desconto>1.98</desconto>
+            <peso>0.99</peso>
+            <frete>1.78</frete>
+            <moeda>BRL</moeda>
+            <meio_de_pagamento>cartao_master</meio_de_pagamento>
+            <parcelas>3</parcelas>
+            <referencia>referencia-01</referencia>
+            <numero>5453010000066167</numero>
+            <expiracao>05/2018</expiracao>
+            <codigo_de_seguranca>123</codigo_de_seguranca>
+            <portador>
+              <nome>AUTORIZAR</nome>
+              <cpf>13786614431</cpf>
+              <telefone>1133331111</telefone>
+            </portador>
+          </transacao>
+        </carrinho>
+    headers: {}
+  response:
+    status:
+      code: 422
+      message: Unprocessable Entity
+    headers:
+      Server:
+      - nginx/0.8.54
+      Date:
+      - Tue, 03 Dec 2013 12:46:30 GMT
+      Content-Type:
+      - application/xml; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 422 Unprocessable Entity
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      X-Runtime:
+      - '0.893971'
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHJlc3Bv
+        c3RhPgogIDxzdGF0dXM+ZXJybzwvc3RhdHVzPgogIDxkZXNjcmljYW8+Tm9t
+        ZSBwb3J0YWRvciBkZXZlIGNvbnRlciBub21lIGUgc29icmVub21lLCB7Om93
+        bmVyX25hbWU9PiJOb21lIiwgOm93bmVyX3Bob25lPT4iVGVsZWZvbmUiLCA6
+        b3duZXJfZG9jdW1lbnQ9PiJEb2N1bWVudG8iLCA6ZHVlPT4iRGF0YSBkZSBl
+        eHBpcmHDp8OjbyJ9IG7Do28gw6kgdsOhbGlkbzwvZGVzY3JpY2FvPgo8L3Jl
+        c3Bvc3RhPgo=
+    http_version: 
+  recorded_at: Tue, 03 Dec 2013 12:46:30 GMT
+recorded_with: VCR 2.8.0
